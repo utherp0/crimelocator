@@ -1,0 +1,8 @@
+(Monument August 2019)
+https://data.police.uk/api/stops-street?lat=51.5101&lng=0.0859&date=2019-08
+
+(Soho August 2019)
+https://data.police.uk/api/stops-street?lat=51.5136&lng=0.1365&date=2019-08
+
+(Westminster August 2020)
+https://data.police.uk/api/stops-street?lat=51.4975&lng=0.1357&date=2020-08
