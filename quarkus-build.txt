@@ -1,0 +1,2 @@
+./mvnw quarkus:add-extension -Dextensions="openshift"
+./mvnw package -Dquarkus.kubernetes.deploy=true -Dquarkus.openshift.expose=true -Dquarkus.kubernetes-client.trust-certs=true

@@ -6,3 +6,6 @@ https://data.police.uk/api/stops-street?lat=51.5136&lng=0.1365&date=2019-08
 
 (Westminster August 2020)
 https://data.police.uk/api/stops-street?lat=51.4975&lng=0.1357&date=2020-08
+
+(All Crimes, Westminster, August 2020)
+https://data.police.uk/api/crimes-street/all-crime?lat=52.629729&lng=-1.131592&date=2020-06

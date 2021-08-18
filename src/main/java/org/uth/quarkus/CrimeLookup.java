@@ -26,8 +26,11 @@ public class CrimeLookup
   @QueryParam("date") String targetDate;
 
   // https://data.police.uk/api/stops-street
-  @ConfigProperty(name="TARGET_URL")
+  @ConfigProperty(name="TARGET_URL",defaultValue="https://data.police.uk/api/stops-street")
   String targetURL;
+
+  @ConfigProperty(name="TARGET_DIR",defaultValue="/temp")
+  String targetDir;
 
   @GET
   @Produces(MediaType.TEXT_PLAIN)
