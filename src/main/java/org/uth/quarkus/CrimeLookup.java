@@ -2,6 +2,8 @@ package org.uth.quarkus;
 
 import org.uth.quarkus.currency.*;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -17,13 +19,14 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import io.vertx.core.json.*;
 
 @Path("/crimes")
-public class CrimeLookup 
+public class CrimeLookup
 {
   List<Interaction> _interactions = new ArrayList<>();
 
   @QueryParam("lat") String latitude;
   @QueryParam("long") String longitude;
   @QueryParam("date") String targetDate;
+  @QueryParam("file") String fileName;
 
   // https://data.police.uk/api/stops-street
   @ConfigProperty(name="TARGET_URL",defaultValue="https://data.police.uk/api/stops-street")
@@ -68,6 +71,12 @@ public class CrimeLookup
       {
         System.out.println( "  " + key + ":" + stats.get("ethnicity").get(key));
       }
+
+      // If we have a filename dump the CSV for the call into a file
+      if( fileName != null )
+      {
+        dumpInteractions(targetDir,fileName);
+      }
     }
     catch( IOException exc )
     {
@@ -104,6 +113,36 @@ public class CrimeLookup
     scanner.close();
 
     return payload.toString();
+  }
+
+  private void dumpInteractions( String targetDir, String filename ) throws IOException
+  {
+    if( _interactions == null || _interactions.size() == 0 )
+    {
+      throw new IOException("Unable to create file, empty Interactions");
+    }
+
+    String targetFile = targetDir + File.separator + filename;
+
+    boolean firstLine = true;
+
+    FileWriter output = new FileWriter( targetFile, true );
+
+    for( Interaction interaction : _interactions )
+    {
+      if( firstLine )
+      {
+        output.write( interaction.toCSV());
+        firstLine = false;
+      }
+      else
+      {
+        output.write( "\n");
+        output.write( interaction.toCSV());
+      }
+    }
+
+    output.close();
   }
 
   private String processPayload( String payload )
